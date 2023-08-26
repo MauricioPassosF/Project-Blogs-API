@@ -1,12 +1,11 @@
 const route = require('express').Router();
+const { loginControllers } = require('../controllers');
+const { loginValidations } = require('../middlewares');
 
 route.post(
-'/',
-//  loginControllers.authenticate,
- (req, res) => {
-  const { email, password } = req.body;
-  res.status(200).json({ message: password && email });
- },
+  '/',
+  loginValidations.validateFields,
+  loginControllers.authenticate,
 );
 
 module.exports = route;

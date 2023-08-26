@@ -21,12 +21,12 @@ module.exports = {
       },
       password: {
         allowNull: false,
-        unique: true,
+        unique: false,
         type: Sequelize.STRING,
       },
       image: {
         allowNull: false,
-        unique: true,
+        unique: false,
         type: Sequelize.STRING,
       },
     })
