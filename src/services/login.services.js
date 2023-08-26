@@ -1,4 +1,5 @@
 const { User } = require('../models');
+const tokenCreate = require('../utils/tokenCreate');
 
 const validateLogin = async (email, password) => {
   const account = await User.findOne({ where: { email, password } });
@@ -12,7 +13,8 @@ const authenticate = async ({ email, password }) => {
   if (validateError) {
     return validateError;
   }
-  return { status: 'SUCCESSFULL', data: { token: 'hdgjfhdagf' } };
+  const token = tokenCreate(email);
+  return { status: 'SUCCESSFULL', data: { token } };
 };
 
 module.exports = {
