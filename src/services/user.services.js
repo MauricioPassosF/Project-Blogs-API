@@ -51,6 +51,14 @@ const insert = async (userInfo) => {
   }
 };
 
+const getAll = async () => {
+  const allUsers = await User.findAll({
+    attributes: ['id', 'displayName', 'email', 'image'],
+  });
+  return { status: 'SUCCESSFULL', data: allUsers };
+};
+
 module.exports = {
   insert,
+  getAll,
 };
