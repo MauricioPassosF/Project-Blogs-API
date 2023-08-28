@@ -11,7 +11,13 @@ const getAll = async (req, res) => {
   res.status(mapStatusHTTP(status)).json(data);
 };
 
+const getById = async (req, res) => {
+  const { data, status } = await userServices.getById(Number(req.params.id));
+  res.status(mapStatusHTTP(status)).json(data);
+};
+
 module.exports = {
+  getById,
   insert,
   getAll,
 };

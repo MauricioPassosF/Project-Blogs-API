@@ -11,4 +11,11 @@ route.get(
   userControllers.getAll,
 );
 
+route.get(
+  '/:id',
+  tokenValidations.validateFields,
+  tokenValidations.validateBearerToken,
+  userControllers.getById,
+);
+
 module.exports = route;

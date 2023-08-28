@@ -58,7 +58,22 @@ const getAll = async () => {
   return { status: 'SUCCESSFULL', data: allUsers };
 };
 
+const getById = async (id) => {
+  try {
+    const user = await User.findByPk(id, {
+      attributes: ['id', 'displayName', 'email', 'image'],
+    });
+    if (!user) {
+      return { status: 'NOT_FOUND', data: { message: 'User does not exist' } };
+    }
+    return { status: 'SUCCESSFULL', data: user };
+  } catch (error) {
+    return { status: 'NOT_FOUND', data: { message: 'User does not exist' } };
+  }
+};
+
 module.exports = {
+  getById,
   insert,
   getAll,
 };
