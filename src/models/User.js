@@ -35,9 +35,9 @@ module.exports = (sequelize, DataTypes) => {
     underscored: true,
   })
 
-  // UserModel.associate = (models) => {
-  //   UserModel.hasMany(models.Comment, {foreignKey: 'accountId', as: 'comments'})
-  // }
+  UserModel.associate = (models) => {
+    UserModel.hasMany(models.BlogPost, {foreignKey: 'userId', as: 'posts'})
+  }
 
   return UserModel
 }
