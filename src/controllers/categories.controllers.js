@@ -6,6 +6,12 @@ const insert = async (req, res) => {
   res.status(mapStatusHTTP(status)).json(data);
 };
 
+const getAll = async (req, res) => {
+  const { data, status } = await categoriesServices.getAll();
+  res.status(mapStatusHTTP(status)).json(data);
+};
+
 module.exports = {
   insert,
+  getAll,
 };

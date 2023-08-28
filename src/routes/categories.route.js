@@ -10,4 +10,11 @@ route.post(
   categoriesControllers.insert,
 );
 
+route.get(
+  '/',
+  tokenValidations.validateFields,
+  tokenValidations.validateBearerToken,
+  categoriesControllers.getAll,
+);
+
 module.exports = route;
