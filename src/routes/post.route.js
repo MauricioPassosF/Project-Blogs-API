@@ -10,4 +10,11 @@ route.post(
   postControllers.insert,
 );
 
+route.get(
+  '/',
+  tokenValidations.validateFields,
+  tokenValidations.validateBearerToken,
+  postControllers.getAll,
+);
+
 module.exports = route;
