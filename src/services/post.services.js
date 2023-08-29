@@ -1,21 +1,5 @@
 const { BlogPost, Category, PostCategory, User, sequelize } = require('../models');
-
-const validateCategories = async (categoryIds) => {
-  try {
-    const promises = await categoryIds.map((id) => Category.findByPk(id, { attributes: ['id'] }));
-    const categories = await Promise.all(promises);
-    return !categories.includes(null);
-  } catch (error) {
-    return false;
-  }
-};
-
-const getUserId = async (email) => {
-  const userId = await User.findOne({ where: { email }, attributes: ['id'] });
-  return userId.dataValues.id;
-};
-
-const getPostData = async (id) => BlogPost.findByPk(id);
+const { validateCategories, getUserId, getPostData } = require('../utils/servicesHelpers');
 
 const insert = async ({ title, content, email, categoryIds }) => {
   const validate = await validateCategories(categoryIds);

@@ -4,7 +4,7 @@ const { tokenValidations, postValidations } = require('../middlewares');
 
 route.post(
   '/',
-  postValidations.validateFields,
+  postValidations.validateFieldsNew,
   tokenValidations.validateFields,
   tokenValidations.validateBearerToken,
   postControllers.insert,
