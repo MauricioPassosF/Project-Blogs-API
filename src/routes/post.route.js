@@ -17,4 +17,11 @@ route.get(
   postControllers.getAll,
 );
 
+route.get(
+  '/:id',
+  tokenValidations.validateFields,
+  tokenValidations.validateBearerToken,
+  postControllers.getById,
+);
+
 module.exports = route;

@@ -39,14 +39,34 @@ const insert = async ({ title, content, email, categoryIds }) => {
 };
 
 const getAll = async () => {
-  const data = await BlogPost.findAll({ include: [
-    { model: User, as: 'user', attributes: ['id', 'displayName', 'email', 'image'] },
-    { model: Category, as: 'categories', through: { attributes: [] } },
-  ] });
+  const data = await BlogPost.findAll({
+    include: [
+      { model: User, as: 'user', attributes: ['id', 'displayName', 'email', 'image'] },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
   return { status: 'SUCCESSFULL', data };
+};
+
+const getById = async (id) => {
+  try {
+    const post = await BlogPost.findByPk(id, {
+      include: [
+        { model: User, as: 'user', attributes: ['id', 'displayName', 'email', 'image'] },
+        { model: Category, as: 'categories', through: { attributes: [] } },
+      ],
+    });
+    if (!post) {
+      return { status: 'NOT_FOUND', data: { message: 'Post does not exist' } };
+    }
+    return { status: 'SUCCESSFULL', data: post };
+  } catch (error) {
+    return { status: 'NOT_FOUND', data: { message: 'Post does not exist' } };
+  }
 };
 
 module.exports = {
   insert,
   getAll,
+  getById,
 };
