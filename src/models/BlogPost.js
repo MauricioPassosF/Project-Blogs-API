@@ -10,12 +10,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     title: {
       allowNull: false,
-      unique: true,
       type: DataTypes.STRING,
     },
     content: {
       allowNull: false,
-      unique: true,
       type: DataTypes.STRING,
     },
     userId: {
@@ -29,11 +27,9 @@ module.exports = (sequelize, DataTypes) => {
       onUpdate: 'CASCADE',
     },
     published: {
-      allowNull: false,
       type: DataTypes.DATE,
     },
     updated: {
-      allowNull: false,
       type: DataTypes.DATE,
     },
   },
