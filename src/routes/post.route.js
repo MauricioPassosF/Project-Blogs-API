@@ -10,6 +10,14 @@ route.post(
   postControllers.insert,
 );
 
+route.put(
+  '/:id',
+  postValidations.validateFieldsUpdate,
+  tokenValidations.validateFields,
+  tokenValidations.validateBearerToken,
+  postControllers.update,
+);
+
 route.get(
   '/',
   tokenValidations.validateFields,

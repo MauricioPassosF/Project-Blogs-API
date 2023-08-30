@@ -17,8 +17,16 @@ const getById = async (req, res) => {
   res.status(mapStatusHTTP(status)).json(data);
 };
 
+const update = async (req, res) => {
+  const { email, body, params: { id } } = req; 
+  const numId = Number(id);
+  const { data, status } = await postServices.update({ body, email, id: numId });
+  res.status(mapStatusHTTP(status)).json(data);
+};
+
 module.exports = {
   insert,
   getAll,
   getById,
+  update,
 };
