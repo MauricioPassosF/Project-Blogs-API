@@ -32,4 +32,11 @@ route.get(
   postControllers.getById,
 );
 
+route.delete(
+  '/:id',
+  tokenValidations.validateFields,
+  tokenValidations.validateBearerToken,
+  postControllers.deletePost,
+);
+
 module.exports = route;

@@ -1,8 +1,5 @@
 const { BlogPost, Category, PostCategory, User, sequelize } = require('../models');
-const { createUpdateObject } = require('../utils/servicesHelpers');
-const { validateCategories, getUserId, getPostData,
-  validateUser,
-} = require('./validations/postValidations');
+const { validateCategories, getUserId, getPostData } = require('./validations/postValidations');
 
 const insert = async ({ title, content, email, categoryIds }) => {
   const validate = await validateCategories(categoryIds);
@@ -24,6 +21,7 @@ const insert = async ({ title, content, email, categoryIds }) => {
     await t.rollback();
   }
 };
+
 const getAll = async () => {
   const data = await BlogPost.findAll({
     include: [
@@ -33,27 +31,5 @@ const getAll = async () => {
   });
   return { status: 'SUCCESSFULL', data };
 };
-const getById = async (id) => {
-  try {
-    const post = await BlogPost.findByPk(id, {
-      include: [
-        { model: User, as: 'user', attributes: ['id', 'displayName', 'email', 'image'] },
-        { model: Category, as: 'categories', through: { attributes: [] } },
-      ],
-    });
-    if (!post) {
-      return { status: 'NOT_FOUND', data: { message: 'Post does not exist' } };
-    }
-    return { status: 'SUCCESSFULL', data: post };
-  } catch (error) {
-    return { status: 'NOT_FOUND', data: { message: 'Post does not exist' } };
-  }
-};
-const update = async ({ id, body, email }) => {
-  const userValidate = await validateUser(email, id);
-  if (!userValidate) { return { status: 'UNAUTHORIZED', data: { message: 'Unauthorized user' } }; }
-  const updateValues = createUpdateObject(body);
-  await BlogPost.update(updateValues, { where: { id } });
-  return getById(id);
-};
-module.exports = { insert, getAll, getById, update };
+
+module.exports = { insert, getAll };
