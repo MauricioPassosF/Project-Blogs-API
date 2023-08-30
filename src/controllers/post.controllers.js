@@ -17,6 +17,12 @@ const getById = async (req, res) => {
   res.status(mapStatusHTTP(status)).json(data);
 };
 
+const getBySearch = async ({ query: { q } }, res) => {
+  console.log(q);
+  const { data, status } = await postServices.getBySearch(q);
+  res.status(mapStatusHTTP(status)).json(data);
+};
+
 const update = async (req, res) => {
   const { email, body, params: { id } } = req; 
   const numId = Number(id);
@@ -37,4 +43,5 @@ module.exports = {
   getById,
   update,
   deletePost,
+  getBySearch,
 };

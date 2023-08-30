@@ -2,6 +2,13 @@ const route = require('express').Router();
 const { postControllers } = require('../controllers');
 const { tokenValidations, postValidations } = require('../middlewares');
 
+route.get(
+  '/search',
+  tokenValidations.validateFields,
+  tokenValidations.validateBearerToken,
+  postControllers.getBySearch,
+);
+
 route.post(
   '/',
   postValidations.validateFieldsNew,

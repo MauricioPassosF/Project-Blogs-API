@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const { BlogPost, Category, PostCategory, User, sequelize } = require('../models');
 const { validateCategories, getUserId, getPostData } = require('./validations/postValidations');
 
@@ -32,4 +33,23 @@ const getAll = async () => {
   return { status: 'SUCCESSFULL', data };
 };
 
-module.exports = { insert, getAll };
+const getBySearch = async (searchTerm) => {
+  const data = await BlogPost.findAll({
+    where: {
+      [Op.or]: [[{ title: {
+        [Op.like]: `%${searchTerm}%`,
+      } }],
+      [{ content: {
+        [Op.like]: `%${searchTerm}%`,
+      } }],
+    ],
+    },
+    include: [
+      { model: User, as: 'user', attributes: ['id', 'displayName', 'email', 'image'] },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+  return { status: 'SUCCESSFULL', data };
+};
+
+module.exports = { insert, getAll, getBySearch };
