@@ -18,4 +18,11 @@ route.get(
   userControllers.getById,
 );
 
+route.delete(
+  '/me',
+  tokenValidations.validateFields,
+  tokenValidations.validateBearerToken,
+  userControllers.deleteUser,
+);
+
 module.exports = route;
